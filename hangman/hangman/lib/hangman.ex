@@ -11,6 +11,7 @@ defmodule Hangman do
 
   @spec new_game() :: game
   def new_game do
+    Hangman.Impl.Game.new_game()
   end
 
   @spec make_move(game, String.t) :: {game, tally}
