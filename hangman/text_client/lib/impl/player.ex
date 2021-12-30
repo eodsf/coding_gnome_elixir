@@ -13,12 +13,12 @@ defmodule TextClient.Impl.Player do
 
   @spec interact( {game, tally} ) :: :ok
   def interact( {_game, tally = %{ game_state: :won} } ) do
-    IO.puts "Congrats, you won the game - the word was #{tally.letters |> Enum.join}"
+   IO.puts "#{IO.ANSI.green()} Congrats, you won the game - the word was #{tally.letters |> Enum.join}"
   end
 
 
   def interact( {_game, tally = %{ game_state: :lost} } ) do
-    IO.puts "Commiserations, you lost the game - the word was #{tally.letters |> Enum.join}"
+    IO.puts "#{IO.ANSI.red()} Commiserations, you lost the game - the word was #{tally.letters |> Enum.join}"
   end
 
 
@@ -31,12 +31,12 @@ defmodule TextClient.Impl.Player do
   end
 
   def feedback_for(tally = %{game_state: :initializing }) do
-    IO.puts "Welcome to the game. The word to guess has #{tally.letters |> length} letters"
+    IO.puts "#{IO.ANSI.blue()} Welcome to the game. The word to guess has #{tally.letters |> length} letters"
   end
 
-  def feedback_for(%{ game_state: :good_guess}), do: IO.puts "Good guess!"
-  def feedback_for(%{ game_state: :bad_guess}), do: IO.puts "Bad guess! That letter is not in the word"
-  def feedback_for(%{ game_state: :already_used}), do: IO.puts "Sorry, you alrady used that letter."
+  def feedback_for(%{ game_state: :good_guess}), do: IO.puts "#{IO.ANSI.green()} Good guess!"
+  def feedback_for(%{ game_state: :bad_guess}), do: IO.puts "#{IO.ANSI.red()} Bad guess! That letter is not in the word"
+  def feedback_for(%{ game_state: :already_used}), do: IO.puts "#{IO.ANSI.yellow()} Sorry, you alrady used that letter."
 
   def current_word(tally) do
     [
