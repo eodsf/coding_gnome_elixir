@@ -3,9 +3,12 @@ defmodule Dictionary.Runtime.Server do
   @type t ::pid()
   @me __MODULE__
 
+  use Agent
+
   alias Dictionary.Impl.WordList
 
-  def start_link do
+  def start_link(_) do
+    #note: unused argument above to satisfy supervisor requirement for arity
     Agent.start_link(&WordList.word_list/0, name: @me)
   end
 
